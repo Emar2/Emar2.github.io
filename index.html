@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Emar2 personal technology and cybersecurity portfolio website." />
+  <title>Emar2 | Cyber Lab Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #060711;
+      --panel: rgba(15, 23, 42, 0.82);
+      --panel-solid: #0f172a;
+      --text: #e5f1ff;
+      --muted: #9fb2cc;
+      --cyan: #22d3ee;
+      --purple: #a855f7;
+      --pink: #ec4899;
+      --lime: #84cc16;
+      --line: rgba(148, 163, 184, 0.22);
+      --glass: rgba(255, 255, 255, 0.055);
+      --shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 5%, rgba(168, 85, 247, 0.28), transparent 26rem),
+        radial-gradient(circle at 80% 15%, rgba(34, 211, 238, 0.20), transparent 24rem),
+        radial-gradient(circle at 50% 100%, rgba(236, 72, 153, 0.16), transparent 30rem),
+        var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 34px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(6, 7, 17, 0.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-symbol {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(34, 211, 238, 0.45);
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.18), rgba(168, 85, 247, 0.18));
+      box-shadow: 0 0 35px rgba(34, 211, 238, 0.18);
+      color: var(--cyan);
+      font-size: 0.9rem;
+    }
+
+    .brand-symbol::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      right: -4px;
+      top: -4px;
+      background: var(--lime);
+      border-radius: 50%;
+      box-shadow: 0 0 20px var(--lime);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.94rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    .nav-cta {
+      padding: 10px 16px;
+      border-radius: 999px;
+      color: #051019 !important;
+      background: var(--cyan);
+      box-shadow: 0 0 28px rgba(34, 211, 238, 0.26);
+    }
+
+    .menu {
+      display: none;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: var(--glass);
+      border-radius: 14px;
+      padding: 10px 13px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: calc(100vh - 78px);
+      display: grid;
+      align-items: center;
+      padding: 74px 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) 470px;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 20px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--cyan);
+      background: rgba(34, 211, 238, 0.08);
+      font-weight: 900;
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .chip span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 16px var(--lime);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      font-size: clamp(1.55rem, 3.2vw, 3.4rem);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: clamp(1.15rem, 2.2vw, 2.35rem);
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 13px 22px;
+      border-radius: 16px;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      font-weight: 900;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(34, 211, 238, 0.55);
+    }
+
+    .btn.primary {
+      color: #03131a;
+      background: var(--cyan);
+      border-color: var(--cyan);
+      box-shadow: 0 0 35px rgba(34, 211, 238, 0.27);
+    }
+
+    .btn.secondary {
+      color: var(--text);
+      background: var(--glass);
+    }
+
+    .terminal {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(2, 6, 23, 0.86);
+      box-shadow: var(--shadow), 0 0 60px rgba(168, 85, 247, 0.12);
+      overflow: hidden;
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dot.red { background: #ef4444; }
+    .dot.yellow { background: #eab308; }
+    .dot.green { background: #22c55e; }
+
+    .terminal-title {
+      margin-left: 10px;
+      color: var(--muted);
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.9rem;
+    }
+
+    .terminal-body {
+      padding: 24px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.98rem;
+    }
+
+    .line {
+      margin: 0 0 15px;
+      color: var(--muted);
+    }
+
+    .prompt {
+      color: var(--lime);
+    }
+
+    .cmd {
+      color: var(--cyan);
+    }
+
+    .output {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .output-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .output-card strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 4px;
+      font-family: Inter, Arial, sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .output-card span {
+      color: var(--muted);
+      font-family: Inter, Arial, sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .section {
+      padding: 86px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--cyan);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.8rem;
+    }
+
+    .section-head p,
+    .card p,
+    .wide-card p,
+    .business p,
+    .contact-card p,
+    .form-note {
+      color: var(--muted);
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card,
+    .wide-card,
+    .business,
+    .contact-card,
+    .contact-form {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      min-height: 250px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -50px;
+      bottom: -50px;
+      border-radius: 50%;
+      background: rgba(34, 211, 238, 0.12);
+      filter: blur(2px);
+    }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      border-radius: 18px;
+      color: var(--cyan);
+      background: rgba(34, 211, 238, 0.09);
+      border: 1px solid rgba(34, 211, 238, 0.18);
+      font-size: 1.7rem;
+    }
+
+    .project-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .wide-card {
+      padding: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .wide-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(34, 211, 238, 0.10), transparent 45%),
+        linear-gradient(315deg, rgba(236, 72, 153, 0.10), transparent 45%);
+      pointer-events: none;
+    }
+
+    .wide-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .number {
+      display: inline-grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      margin-bottom: 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: white;
+      font-weight: 900;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tags span {
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--cyan);
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.18);
+      font-weight: 900;
+      font-size: 0.82rem;
+    }
+
+    .business {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 420px;
+      gap: 28px;
+      padding: 34px;
+      align-items: center;
+      background:
+        linear-gradient(135deg, rgba(132, 204, 22, 0.08), rgba(34, 211, 238, 0.06)),
+        var(--panel);
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .service {
+      padding: 15px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.045);
+      font-weight: 900;
+      font-size: 0.95rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .contact-card,
+    .contact-form {
+      padding: 30px;
+    }
+
+    .link-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .link-list a {
+      display: block;
+      text-decoration: none;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .link-list strong,
+    .link-list span {
+      display: block;
+    }
+
+    .link-list span {
+      color: var(--muted);
+      word-break: break-word;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      font-weight: 900;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 15px;
+      font: inherit;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: 3px solid rgba(34, 211, 238, 0.12);
+      border-color: var(--cyan);
+    }
+
+    .footer {
+      padding: 32px 0;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    @media (max-width: 1000px) {
+      .menu {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 17px;
+        right: 17px;
+        top: 78px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--panel-solid);
+        box-shadow: var(--shadow);
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .hero-grid,
+      .section-head,
+      .business,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .matrix {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: min(100% - 26px, 1180px);
+      }
+
+      .hero,
+      .section {
+        padding: 54px 0;
+      }
+
+      .matrix,
+      .project-layout,
+      .services {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+      }
+
+      h3 {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home">
+        <span class="brand-symbol">EM2</span>
+        <span>Emar2</span>
+      </a>
+
+      <button class="menu" aria-label="Open menu">☰</button>
+
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#business">EJ Tech Repair</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="https://www.ejtechrepair.com/" target="_blank" rel="noopener">Business Site</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="chip"><span></span> Personal Cyber Lab</div>
+          <h1>Emar2 builds <span class="gradient-text">IT skills</span> through cybersecurity, networking, and real support work.</h1>
+          <p class="hero-text">
+            This is my personal technology site for school projects, Packet Tracer labs, cybersecurity learning,
+            technical notes, and career growth. EJ Tech Repair is linked here, but this site has its own identity.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="#projects">Explore Projects</a>
+            <a class="btn secondary" href="#contact">Contact Me</a>
+          </div>
+        </div>
+
+        <aside class="terminal">
+          <div class="terminal-bar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">emar2-lab / portfolio</span>
+          </div>
+          <div class="terminal-body">
+            <p class="line"><span class="prompt">$</span> <span class="cmd">whoami</span></p>
+            <p class="line">Emar2 — IT & Cybersecurity Student</p>
+
+            <p class="line"><span class="prompt">$</span> <span class="cmd">current_focus --list</span></p>
+
+            <div class="output">
+              <div class="output-card">
+                <strong>Cybersecurity</strong>
+                <span>Security fundamentals, risk awareness, and technical analysis.</span>
+              </div>
+              <div class="output-card">
+                <strong>Networking</strong>
+                <span>Packet Tracer, IP addressing, routing, switching, DHCP, DNS, and VLANs.</span>
+              </div>
+              <div class="output-card">
+                <strong>IT Support</strong>
+                <span>Troubleshooting, setup, customer service, and documentation.</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Skill Modules</p>
+            <h2>What I am building.</h2>
+          </div>
+          <p>
+            This design is intentionally different: dark cyber-lab colors, terminal elements, glowing cards,
+            and a tech-focused structure for your personal domain.
+          </p>
+        </div>
+
+        <div class="matrix">
+          <article class="card">
+            <div class="card-icon">🔐</div>
+            <h3>Cybersecurity</h3>
+            <p>Security basics, network protection, system hardening, awareness, and risk thinking.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">🌐</div>
+            <h3>Networking</h3>
+            <p>IP addressing, subnetting, routers, switches, VLANs, DHCP, DNS, and NAT.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">🧪</div>
+            <h3>Labs</h3>
+            <p>Packet Tracer activities, diagrams, screenshots, configuration notes, and testing.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">🛠️</div>
+            <h3>Support</h3>
+            <p>Computer troubleshooting, software setup, printer help, device support, and clear explanations.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Project Database</p>
+            <h2>Portfolio areas.</h2>
+          </div>
+          <p>
+            These sections can grow as more school projects, labs, and personal technology work are completed.
+          </p>
+        </div>
+
+        <div class="project-layout">
+          <article class="wide-card">
+            <div class="wide-inner">
+              <div class="number">01</div>
+              <h3>School Project Archive</h3>
+              <p>
+                Coursework summaries, project explanations, writing assignments, and technical reflections
+                from IT and cybersecurity classes.
+              </p>
+              <div class="tags">
+                <span>SNHU</span>
+                <span>Cybersecurity</span>
+                <span>Technical Writing</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="wide-card">
+            <div class="wide-inner">
+              <div class="number">02</div>
+              <h3>Networking Lab Notes</h3>
+              <p>
+                Packet Tracer diagrams, routing and switching work, subnetting notes, DHCP/DNS configuration,
+                VLAN practice, and screenshots.
+              </p>
+              <div class="tags">
+                <span>Packet Tracer</span>
+                <span>Networking</span>
+                <span>Labs</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="wide-card">
+            <div class="wide-inner">
+              <div class="number">03</div>
+              <h3>Technical Skill Growth</h3>
+              <p>
+                A record of developing skills in troubleshooting, documentation, web work, cybersecurity basics,
+                and customer-focused support.
+              </p>
+              <div class="tags">
+                <span>IT Support</span>
+                <span>Documentation</span>
+                <span>Career Growth</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="wide-card">
+            <div class="wide-inner">
+              <div class="number">04</div>
+              <h3>Personal Tech Experiments</h3>
+              <p>
+                A place for small builds, learning experiments, automation ideas, and useful tools as they develop.
+              </p>
+              <div class="tags">
+                <span>Projects</span>
+                <span>Automation</span>
+                <span>Learning</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="business" class="section">
+      <div class="container business">
+        <div>
+          <p class="eyebrow">Related Business</p>
+          <h2>EJ Tech Repair</h2>
+          <p>
+            EJ Tech Repair is my separate mobile technology support business. This personal site is for school,
+            projects, cybersecurity learning, and professional growth. Customers looking for repair or tech support
+            can use the business website.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="https://www.ejtechrepair.com/" target="_blank" rel="noopener">Open EJ Tech Repair</a>
+          </div>
+        </div>
+
+        <div class="services">
+          <div class="service">💻 Computer Help</div>
+          <div class="service">🖨️ Printer Setup</div>
+          <div class="service">📶 Wi-Fi Support</div>
+          <div class="service">📱 Device Setup</div>
+          <div class="service">🛡️ Virus Cleanup</div>
+          <div class="service">🏠 Smart Camera Help</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container contact-grid">
+        <article class="contact-card">
+          <p class="eyebrow">Connect</p>
+          <h2>Contact hub.</h2>
+          <p>
+            Use these links for school, project, or professional contact. For customer service requests, use
+            the EJ Tech Repair business site.
+          </p>
+
+          <div class="link-list">
+            <a href="mailto:emarty9976@outlook.com">
+              <strong>Email</strong>
+              <span>emarty9976@outlook.com</span>
+            </a>
+
+            <a href="https://www.linkedin.com/in/edward-m-339514281/" target="_blank" rel="noopener">
+              <strong>LinkedIn</strong>
+              <span>Professional profile</span>
+            </a>
+
+            <a href="https://www.ejtechrepair.com/" target="_blank" rel="noopener">
+              <strong>EJ Tech Repair</strong>
+              <span>Business website</span>
+            </a>
+          </div>
+        </article>
+
+        <form class="contact-form" name="emar-cyber-contact" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="emar-cyber-contact" />
+          <h2>Send message</h2>
+
+          <label>
+            Name
+            <input type="text" name="name" required />
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+
+          <label>
+            Message
+            <textarea name="message" rows="6" required></textarea>
+          </label>
+
+          <button class="btn primary" type="submit">Submit Message</button>
+          <p class="form-note">Form is ready for Netlify hosting.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-row">
+      <p>© 2026 Emar2. Personal cyber lab portfolio.</p>
+      <div>
+        <a href="#home">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuButton.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+      });
+    });
+  </script>
+</body>
+</html>
